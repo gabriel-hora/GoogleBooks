@@ -3,10 +3,15 @@ package com.example.googlebooks.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.googlebooks.databinding.ActivityMainBinding
 import com.example.googlebooks.model.BookHttp
 import com.example.googlebooks.ui.adapter.BookListAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,18 +24,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         val context = this
 
+        //Carregar dados na UI com coroutines
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        object: Thread() {
-            override fun run() {
-                super.run()
-                val result = BookHttp.searchBook("Dominando o Android")
 
-                runOnUiThread{
-                    result?.items?.let {
-                        binding.recyclerView.adapter = BookListAdapter(it, context)
-                    }
-                }
+        lifecycleScope.launch {
+            val result = withContext(Dispatchers.IO){
+                BookHttp.searchBook("Dominando o Android")
             }
-        }.start()
+            result?.items?.let {
+                binding.recyclerView.adapter = BookListAdapter(it, context)
+            }
+        }
     }
 }
