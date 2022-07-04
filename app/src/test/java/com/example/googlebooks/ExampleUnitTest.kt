@@ -13,9 +13,9 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun googleBooksApiTest() {
-        val searchResult = BookHttp.searchBook("Dominando o Android")
+        val searchResult = BookHttp.searchBook("Google")
         searchResult?.items?.forEach { volume ->
-            println(volume)
+            println(volume.volumeInfo.authors)
         }
     }
 }
