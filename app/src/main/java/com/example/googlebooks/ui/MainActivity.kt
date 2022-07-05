@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         //Carregar dados na UI com coroutines
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-
         lifecycleScope.launch {
             val result = withContext(Dispatchers.IO){
                 BookHttp.searchBook("Dominando o Android")

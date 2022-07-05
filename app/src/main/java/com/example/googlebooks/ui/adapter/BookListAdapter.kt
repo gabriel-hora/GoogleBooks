@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.googlebooks.R
 import com.example.googlebooks.databinding.ItemBookBinding
 import com.example.googlebooks.model.Volume
+import com.squareup.picasso.Picasso
 
 class BookListAdapter(
     val items: List<Volume>,
@@ -25,6 +26,13 @@ class BookListAdapter(
         holder.txtTitle.text = volume.volumeInfo.title
         holder.txtAuthor.text = volume.volumeInfo.authors?.joinToString() ?: "-"
         holder.txtPages.text = volume.volumeInfo.pageCount?.toString() ?: "-"
+
+        if(volume.volumeInfo.imageLinks.smallThumbnail != null) {
+            Picasso.get().load(volume.volumeInfo.imageLinks.smallThumbnail).into(holder.imageCover)
+        } else {
+            holder.imageCover.setImageResource(R.drawable.ic_baseline_broken_image_24)
+        }
+
     }
 
     override fun getItemCount(): Int {
