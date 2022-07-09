@@ -46,10 +46,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    //Comunicação com a API
+    //OkHTTP | Comunicação com a API
     implementation 'com.squareup.okhttp3:okhttp:4.9.2'
 
-    //Converte Json em objetos
+    //GSon | Converte Json em objetos
     implementation 'com.google.code.gson:gson:2.8.9'
 
     //Coroutines
@@ -59,4 +59,10 @@ dependencies {
     //Image | Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    //LiveData
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
 }
