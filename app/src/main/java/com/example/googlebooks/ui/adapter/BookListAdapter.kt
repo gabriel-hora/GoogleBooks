@@ -10,8 +10,9 @@ import com.example.googlebooks.model.Volume
 import com.squareup.picasso.Picasso
 
 class BookListAdapter(
-    val items: List<Volume>,
-    private val context: Context
+    private val items: List<Volume>,
+    private val context: Context,
+    private val onItemClick: (Volume) -> Unit
 ) : RecyclerView.Adapter<BookViewHolder>() {
 
     //Carregar arquivo de Layout e instaciar o BookViewHolder | Criar itens
@@ -26,6 +27,9 @@ class BookListAdapter(
         holder.txtTitle.text = volume.volumeInfo.title
         holder.txtAuthor.text = volume.volumeInfo.authors?.joinToString() ?: "-"
         holder.txtPages.text = volume.volumeInfo.pageCount?.toString() ?: "-"
+        holder.itemView.setOnClickListener {
+            onItemClick(volume)
+        }
 
         if(volume.volumeInfo.imageLinks.smallThumbnail != null) {
             Picasso.get().load(volume.volumeInfo.imageLinks.smallThumbnail).into(holder.imageCover)
