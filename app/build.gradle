@@ -65,4 +65,8 @@ dependencies {
 
     //LiveData
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
+
+    //Fragments
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }
