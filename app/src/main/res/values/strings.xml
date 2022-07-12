@@ -4,4 +4,6 @@
     <string name="editora">Editora</string>
     <string name="message_loading">Carregando</string>
     <string name="error_loading">Erro ao carregar a lista de Livros</string>
+    <string name="tab_books">Livros</string>
+    <string name="tab_favorites">Favoritos</string>
 </resources>
