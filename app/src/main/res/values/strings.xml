@@ -2,4 +2,6 @@
     <string name="app_name">GoogleBooks</string>
     <string name="description">Descrição</string>
     <string name="editora">Editora</string>
+    <string name="message_loading">Carregando</string>
+    <string name="error_loading">Erro ao carregar a lista de Livros</string>
 </resources>
