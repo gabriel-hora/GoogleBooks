@@ -3,6 +3,7 @@ package com.example.googlebooks.ui.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.googlebooks.ui.fragments.BookFavoritesFragment
 import com.example.googlebooks.ui.fragments.BookListFragment
 
 class BookPagerAdapter(fa: FragmentActivity): FragmentStateAdapter(fa) {
@@ -12,6 +13,6 @@ class BookPagerAdapter(fa: FragmentActivity): FragmentStateAdapter(fa) {
         return if (position == 0)
             BookListFragment()
         else
-            Fragment()
+            BookFavoritesFragment()
     }
 }
