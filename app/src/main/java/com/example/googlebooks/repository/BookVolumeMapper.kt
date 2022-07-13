@@ -34,8 +34,8 @@ object BookVolumeMapper {
               volumeInfo.publisher,
               volumeInfo.publisherDate,
               volumeInfo.pageCount,
-              volumeInfo.imageLinks.smallThumbnail,
-              volumeInfo.imageLinks.thumbnail
+              volumeInfo.imageLinks?.smallThumbnail,
+              volumeInfo.imageLinks?.thumbnail
           )
       }
 }

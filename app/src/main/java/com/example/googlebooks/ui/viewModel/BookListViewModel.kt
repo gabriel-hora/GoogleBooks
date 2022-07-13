@@ -21,11 +21,15 @@ class BookListViewModel: ViewModel() {
     fun loadBooks() {
         if (_state.value is State.Loaded) return
 
+        search("Dominando Android")
+    }
+
+    fun search(query: String) {
         viewModelScope.launch {
             _state.value = State.Loading
             delay(2000)
             val result = withContext(Dispatchers.IO){
-                BookHttp.searchBook("Dominando o Android")
+                BookHttp.searchBook(query)
             }
             if (result?.items == null) {
                 _state.value = State.Error(Exception("Error loading Books"), false)
@@ -40,6 +44,4 @@ class BookListViewModel: ViewModel() {
         data class Loaded(val items: List<Volume>): State()
         data class Error(val e: Throwable, var hasConsumed: Boolean): State()
     }
-
-
 }

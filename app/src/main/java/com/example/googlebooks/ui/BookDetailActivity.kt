@@ -4,16 +4,13 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.googlebooks.R
 import com.example.googlebooks.databinding.ActivityBookDetailBinding
-import com.example.googlebooks.databinding.ActivityMainBinding
 import com.example.googlebooks.model.Volume
 import com.example.googlebooks.repository.BookRepository
 import com.example.googlebooks.ui.viewModel.BookDetailViewModel
-import com.example.googlebooks.ui.viewModel.BookFavoritesViewModel
 import com.example.googlebooks.ui.viewModel.BookViewModelFactory
 import com.squareup.picasso.Picasso
 
@@ -44,6 +41,12 @@ class BookDetailActivity : AppCompatActivity() {
             binding.txtPages.text = volume.volumeInfo.pageCount?.toString() ?: "-"
             binding.txtDescription.text = volume.volumeInfo.description
             binding.txtPublisher.text = volume.volumeInfo.publisher
+
+            if(volume.volumeInfo.imageLinks?.smallThumbnail != null) {
+                Picasso.get().load(volume.volumeInfo.imageLinks?.smallThumbnail).into(binding.imageCover)
+            } else {
+                binding.imageCover.setImageResource(R.drawable.ic_baseline_broken_image_24)
+            }
 
             viewModel.isFavorite.observe(
                 this,

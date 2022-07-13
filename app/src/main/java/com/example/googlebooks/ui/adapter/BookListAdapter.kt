@@ -31,12 +31,11 @@ class BookListAdapter(
             onItemClick(volume)
         }
 
-        if(volume.volumeInfo.imageLinks.smallThumbnail != null) {
-            Picasso.get().load(volume.volumeInfo.imageLinks.smallThumbnail).into(holder.imageCover)
+        if(volume.volumeInfo.imageLinks?.smallThumbnail != null) {
+            Picasso.get().load(volume.volumeInfo.imageLinks?.smallThumbnail).into(holder.imageCover)
         } else {
             holder.imageCover.setImageResource(R.drawable.ic_baseline_broken_image_24)
         }
-
     }
 
     override fun getItemCount(): Int {
