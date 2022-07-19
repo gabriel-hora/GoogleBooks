@@ -13,4 +13,4 @@ data class VolumeInfo(
     val publisherDate: String?,
     val pageCount: Int?,
     val imageLinks: ImageLinks?
-): Parcelable
+) : Parcelable

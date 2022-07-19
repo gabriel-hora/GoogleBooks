@@ -12,10 +12,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-class BookListViewModel: ViewModel() {
+class BookListViewModel : ViewModel() {
 
     private val _state = MutableLiveData<State>()
-    val state : LiveData<State>
+    val state: LiveData<State>
         get() = _state
 
     fun loadBooks() {
@@ -28,7 +28,7 @@ class BookListViewModel: ViewModel() {
         viewModelScope.launch {
             _state.value = State.Loading
             delay(2000)
-            val result = withContext(Dispatchers.IO){
+            val result = withContext(Dispatchers.IO) {
                 BookHttp.searchBook(query)
             }
             if (result?.items == null) {
@@ -40,8 +40,8 @@ class BookListViewModel: ViewModel() {
     }
 
     sealed class State {
-        object Loading: State()
-        data class Loaded(val items: List<Volume>): State()
-        data class Error(val e: Throwable, var hasConsumed: Boolean): State()
+        object Loading : State()
+        data class Loaded(val items: List<Volume>) : State()
+        data class Error(val e: Throwable, var hasConsumed: Boolean) : State()
     }
 }

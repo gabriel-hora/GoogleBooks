@@ -44,7 +44,7 @@ class BookFavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.searchView.visibility = View.GONE
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.favoriteBooks.observe(viewLifecycleOwner, Observer { items ->

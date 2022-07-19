@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.googlebooks.ui.fragments.BookFavoritesFragment
 import com.example.googlebooks.ui.fragments.BookListFragment
 
-class BookPagerAdapter(fa: FragmentActivity): FragmentStateAdapter(fa) {
+class BookPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {

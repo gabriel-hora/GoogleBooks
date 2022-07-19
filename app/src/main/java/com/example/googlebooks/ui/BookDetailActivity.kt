@@ -2,8 +2,11 @@ package com.example.googlebooks.ui
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.googlebooks.R
@@ -27,23 +30,26 @@ class BookDetailActivity : AppCompatActivity() {
         )[BookDetailViewModel::class.java]
     }
 
+    lateinit var volume: Volume
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        val volume = intent.getParcelableExtra<Volume>(EXTRA_BOOK)
+        volume = intent.getParcelableExtra<Volume>(EXTRA_BOOK)!!
         if (volume != null) {
-
+            this.volume = volume
             binding.txtTitle.text = volume.volumeInfo.title
             binding.txtAuthor.text = volume.volumeInfo.authors?.joinToString() ?: "-"
             binding.txtPages.text = volume.volumeInfo.pageCount?.toString() ?: "-"
             binding.txtDescription.text = volume.volumeInfo.description
             binding.txtPublisher.text = volume.volumeInfo.publisher
 
-            if(volume.volumeInfo.imageLinks?.smallThumbnail != null) {
-                Picasso.get().load(volume.volumeInfo.imageLinks?.smallThumbnail).into(binding.imageCover)
+            if (volume.volumeInfo.imageLinks?.smallThumbnail != null) {
+                Picasso.get().load(volume.volumeInfo.imageLinks?.smallThumbnail)
+                    .into(binding.imageCover)
             } else {
                 binding.imageCover.setImageResource(R.drawable.ic_baseline_broken_image_24)
             }
@@ -64,10 +70,27 @@ class BookDetailActivity : AppCompatActivity() {
                     }
                 }
             )
-        viewModel.onCreate(volume)
+            viewModel.onCreate(volume)
         } else {
             finish()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.book_detail, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_view_web) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://books.google.com.br/books?id=${volume.id}")
+                )
+            )
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

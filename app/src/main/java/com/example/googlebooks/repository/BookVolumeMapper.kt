@@ -24,18 +24,18 @@ object BookVolumeMapper {
         )
 
     fun volumeToBook(volume: Volume) =
-      volume.run {
-          Book(
-              id,
-              selfLink,
-              volumeInfo.title,
-              volumeInfo.description,
-              volumeInfo.authors,
-              volumeInfo.publisher,
-              volumeInfo.publisherDate,
-              volumeInfo.pageCount,
-              volumeInfo.imageLinks?.smallThumbnail,
-              volumeInfo.imageLinks?.thumbnail
-          )
-      }
+        volume.run {
+            Book(
+                id,
+                selfLink,
+                volumeInfo.title,
+                volumeInfo.description,
+                volumeInfo.authors,
+                volumeInfo.publisher,
+                volumeInfo.publisherDate,
+                volumeInfo.pageCount,
+                volumeInfo.imageLinks?.smallThumbnail,
+                volumeInfo.imageLinks?.thumbnail
+            )
+        }
 }

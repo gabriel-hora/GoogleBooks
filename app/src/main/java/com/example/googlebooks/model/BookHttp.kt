@@ -9,15 +9,16 @@ import java.util.concurrent.TimeUnit
 object BookHttp {
 
     private const val API_KEY = "AIzaSyDOjExGxATmzZmVlOqqxi8am9f33R63FFU"
-    private const val BOOK_JSON_URL = "https://www.googleapis.com/books/v1/volumes?q=%s&key=$API_KEY"
+    private const val BOOK_JSON_URL =
+        "https://www.googleapis.com/books/v1/volumes?q=%s&key=$API_KEY"
 
     //Contruir a comunicação com a API | instanciar o Client
     private val client = OkHttpClient.Builder()
-            //quanto tempo demora para o servidor responder após conectar
+        //quanto tempo demora para o servidor responder após conectar
         .readTimeout(10, TimeUnit.SECONDS)
 
-            //quanto tempo demora para conectar com o servidor
-        .connectTimeout(10,TimeUnit.SECONDS)
+        //quanto tempo demora para conectar com o servidor
+        .connectTimeout(10, TimeUnit.SECONDS)
         .build()
 
     //Requisição
@@ -31,7 +32,7 @@ object BookHttp {
             val json = response.body?.string()
             return Gson().fromJson(json, SearchResult::class.java)
 
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return null

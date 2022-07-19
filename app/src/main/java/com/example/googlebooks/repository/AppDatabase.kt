@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase
     exportSchema = false
 )
 
-abstract class AppDatabase (): RoomDatabase() {
+abstract class AppDatabase() : RoomDatabase() {
 
     abstract fun getBookDao(): BookDao
 

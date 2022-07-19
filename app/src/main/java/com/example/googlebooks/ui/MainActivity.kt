@@ -17,15 +17,17 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         val context = this
+        setSupportActionBar(binding.toolbar)
 
         binding.viewPager.adapter = BookPagerAdapter(this)
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.setText(
                 if (position == 0) {
-                R.string.tab_books
-            } else {
-                R.string.tab_favorites
-            })
+                    R.string.tab_books
+                } else {
+                    R.string.tab_favorites
+                }
+            )
         }.attach()
     }
 }

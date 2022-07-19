@@ -1,5 +1,6 @@
 package com.example.googlebooks.ui.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,9 +17,10 @@ import com.example.googlebooks.databinding.FragmentBookListBinding
 import com.example.googlebooks.model.Volume
 import com.example.googlebooks.ui.BookDetailActivity
 import com.example.googlebooks.ui.adapter.BookListAdapter
+import com.example.googlebooks.ui.dialog.LoadingDialog
 import com.example.googlebooks.ui.viewModel.BookListViewModel
 
-class BookListFragment: Fragment() {
+class BookListFragment : Fragment() {
 
     private var _binding: FragmentBookListBinding? = null
     private val binding get() = _binding!!
@@ -38,31 +40,34 @@ class BookListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val loadingDialog: LoadingDialog = LoadingDialog()
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.state.observe(viewLifecycleOwner, Observer { state ->
-            when(state) {
+            when (state) {
                 is BookListViewModel.State.Loading -> {
-                    //Não está resgatando o atributo correto
-                    binding.vwLoading.visibility = View.VISIBLE
+                    loadingDialog.loadingDialog(activity)
+                    loadingDialog.startLoadingDialog()
                 }
                 is BookListViewModel.State.Loaded -> {
-                    binding.vwLoading.visibility = View.GONE
-                    binding.recyclerView.adapter = BookListAdapter(state.items, requireContext(), this::openBookDetail)
+                    loadingDialog.dismissDialog()
+                    binding.recyclerView.adapter =
+                        BookListAdapter(state.items, requireContext(), this::openBookDetail)
                 }
                 is BookListViewModel.State.Error -> {
-                    binding.vwLoading.visibility = View.GONE
-                    if(!state.hasConsumed) {
+                    loadingDialog.dismissDialog()
+                    if (!state.hasConsumed) {
                         state.hasConsumed = true
-                        Toast.makeText(requireContext(), R.string.error_loading, Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), R.string.error_loading, Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
             }
         })
         viewModel.loadBooks()
 
-        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     viewModel.search(query)

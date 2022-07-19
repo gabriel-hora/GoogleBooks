@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.googlebooks.databinding.ActivityMainBinding
 import com.example.googlebooks.databinding.ItemBookBinding
 
-class BookViewHolder(binding: ItemBookBinding): RecyclerView.ViewHolder(binding.root) {
+class BookViewHolder(binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
 
     val imageCover = binding.imageCover
     val txtTitle = binding.txtTitle

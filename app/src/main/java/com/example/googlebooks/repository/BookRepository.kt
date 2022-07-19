@@ -13,7 +13,7 @@ class BookRepository(context: Context) {
         dao.save(BookVolumeMapper.volumeToBook(volume))
     }
 
-    suspend fun delete(volume: Volume){
+    suspend fun delete(volume: Volume) {
         dao.delete(BookVolumeMapper.volumeToBook(volume))
     }
 
